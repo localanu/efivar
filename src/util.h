@@ -28,7 +28,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
+#ifdef __HAIKU__
+#include <Drivers.h>
+#else
 #include <sys/mount.h>
+#endif
 #include <tgmath.h>
 #include <unistd.h>
 
@@ -209,12 +213,22 @@ static inline int
 __attribute__((unused))
 get_sector_size(int filedes)
 {
+/*
+ * Ane masih puyeng anjer disini
 	int rc, sector_size = 512;
 
+#ifdef __HAIKU__
+	int pv;
+	int sc;
+	disk_geometry sc;
+	rc = ioctl(filedes,  ,);
+#else	
 	rc = ioctl(filedes, BLKSSZGET, &sector_size);
+#endif
 	if (rc)
 		sector_size = 512;
 	return sector_size;
+*/
 }
 
 #define asprintfa(str, fmt, args...)					\

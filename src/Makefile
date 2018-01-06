@@ -44,7 +44,7 @@ include/efivar/efivar-guids.h : makeguids guids.txt
 	./makeguids guids.txt guids.bin names.bin \
 		guid-symbols.c include/efivar/efivar-guids.h
 
-makeguids : CPPFLAGS+=-DEFIVAR_BUILD_ENVIRONMENT
+makeguids : CPPFLAGS+=-DEFIVAR_BUILD_ENVIRONMENT -D_BSD_SOURCE
 makeguids : LIBS=dl
 makeguids : $(MAKEGUIDS_SOURCES)
 

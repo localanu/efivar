@@ -28,8 +28,11 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#if defined (__HAIKU__)
+#include <ByteOrder.h>
+#else
 #include <byteswap.h>
-
+#endif
 typedef struct {
 	uint32_t	a;
 	uint16_t	b;

@@ -22,6 +22,12 @@
 
 #include <endian.h>
 
+#if defined(__HAIKU__)
+#define __bswap_16(x) __swap_int16(x)
+#define __bswap_32(x) __swap_int32(x)
+#define __bswap_64(x) __swap_int64(x)
+#endif
+
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 #define cpu_to_le16(x) (x)
 #define cpu_to_le32(x) (x)

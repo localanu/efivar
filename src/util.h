@@ -213,22 +213,20 @@ static inline int
 __attribute__((unused))
 get_sector_size(int filedes)
 {
-/*
- * Ane masih puyeng anjer disini
+// Ane masih puyeng anjer disini
 	int rc, sector_size = 512;
 
 #ifdef __HAIKU__
-	int pv;
-	int sc;
-	disk_geometry sc;
-	rc = ioctl(filedes,  ,);
+//	int pv;
+//	int sc;
+//	disk_geometry sc;
+	rc = ioctl(filedes,B_GET_DEVICE_SIZE,&sector_size); // Tolong jangan lupa di ubah lagi,ini bukan sector size tapi disk size coeg
 #else	
 	rc = ioctl(filedes, BLKSSZGET, &sector_size);
 #endif
 	if (rc)
 		sector_size = 512;
 	return sector_size;
-*/
 }
 
 #define asprintfa(str, fmt, args...)					\

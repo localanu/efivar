@@ -30,6 +30,7 @@
 #include <unistd.h>
 #if defined (__HAIKU__)
 #include <ByteOrder.h>
+#define bswap_16 __swap_int16
 #else
 #include <byteswap.h>
 #endif

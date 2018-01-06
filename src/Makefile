@@ -45,7 +45,7 @@ include/efivar/efivar-guids.h : makeguids guids.txt
 		guid-symbols.c include/efivar/efivar-guids.h
 
 makeguids : CPPFLAGS+=-DEFIVAR_BUILD_ENVIRONMENT -D_BSD_SOURCE
-makeguids : LIBS=dl
+makeguids : LIBS=bsd
 makeguids : $(MAKEGUIDS_SOURCES)
 
 guids.o : guids.S | guids.bin names.bin
@@ -57,15 +57,15 @@ libefivar.a : $(patsubst %.o,%.static.o,$(LIBEFIVAR_OBJECTS))
 
 libefivar.so : $(LIBEFIVAR_OBJECTS)
 libefivar.so : | $(GENERATED_SOURCES) libefivar.map
-libefivar.so : LIBS=dl
+libefivar.so : LIBS=bsd
 libefivar.so : MAP=libefivar.map
 
 efivar : efivar.c | libefivar.so
-efivar : LIBS=efivar dl
+efivar : LIBS=efivar bsd
 
 efivar-static : efivar.c $(patsubst %.o,%.static.o,$(LIBEFIVAR_OBJECTS))
 efivar-static : | $(GENERATED_SOURCES)
-efivar-static : LIBS=dl
+efivar-static : LIBS=bsd
 
 libefiboot.a : $(patsubst %.o,%.static.o,$(LIBEFIBOOT_OBJECTS))
 

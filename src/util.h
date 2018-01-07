@@ -212,23 +212,26 @@ lcm(uint64_t x, uint64_t y)
 static inline int
 __attribute__((unused))
 get_sector_size(int filedes)
+#ifdef __HAIKU__
 {
-// Ane masih puyeng anjer disini
+	int rc,sector_size = 512;
+	device_geometry dg;
+	if(ioctl(filedes, B_GET_GEOMETRY, &dg) != -1)
+	rc = dg.sectors_per_track * dg.cylinder_count;
+	if(rc)
+		sector_size = 512;
+	return sector_size;
+}
+#else
+{
 	int rc, sector_size = 512;
 
-#ifdef __HAIKU__
-//	int pv;
-//	int sc;
-//	disk_geometry sc;
-	rc = ioctl(filedes,B_GET_DEVICE_SIZE,&sector_size); // Tolong jangan lupa di ubah lagi,ini bukan sector size tapi disk size coeg
-#else	
 	rc = ioctl(filedes, BLKSSZGET, &sector_size);
-#endif
 	if (rc)
 		sector_size = 512;
 	return sector_size;
 }
-
+#endif
 #define asprintfa(str, fmt, args...)					\
 	({								\
 		char *_tmp = NULL;					\

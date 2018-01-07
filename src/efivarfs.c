@@ -67,10 +67,10 @@ efivarfs_probe(void)
 
 	if (!access(path, F_OK)) {
 		int rc = 0;
-		struct statvfs buf;
+		struct statfs buf;
 
 		memset(&buf, '\0', sizeof (buf));
-		rc = statvfs(path, &buf);
+		rc = statfs(path, &buf);
 		if (rc == 0) {
 			char *tmp;
 			__typeof__(buf.f_type) magic = EFIVARFS_MAGIC;

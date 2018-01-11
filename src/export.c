@@ -21,7 +21,7 @@
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <uchar.h>
+// #include <uchar.h>
 
 #include <efivar/efivar.h>
 #include "lib.h"
